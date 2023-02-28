@@ -1,0 +1,7 @@
+config:
+  build_stage:
+  - $tempdir/$user/spack-stage
+  install_tree:
+    root: /modules/spack/opt/spack
+  template_dirs:
+  - $spack/unity/templates

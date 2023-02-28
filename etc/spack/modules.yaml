@@ -1,0 +1,94 @@
+modules:
+  # LD_LIBRARY_PATH was removed from modules in spack 0.19
+  # this is because meddling with LD_LIBRARY_PATH can break other software (not modules)
+  # We're keeping it because that's what our users have learned to expect from their modules
+  prefix_inspections:
+    lib:
+      - "LD_LIBRARY_PATH"
+    lib64:
+      - "LD_LIBRARY_PATH"
+
+  default:
+    enable:: # two colons means "I mean business"
+      - lmod
+    arch_folder: false # see long comment about 'projections'
+
+    lmod:
+      core_compilers:
+      - "gcc@9.4.0"
+      hierarchy:
+      # if I add 'compiler' here, for some reason it breaks the whole hierarchy
+      # but if I don't add 'compiler' here, compilers are part of the hierarchy regardless
+      # - compiler
+      - mpi
+      - blas
+
+      all:
+        conflict: ["{name}"] # conflict with modules that go by the same name
+
+      # We use arch_folder: false, and we put {architecture} into the module name projection.
+      # This is because Spack uses the arch *family* for arch_folder (for Lua but not for Tcl).
+      # Because we want our microarchitectures separate, family directories will not do.
+      # https://github.com/spack/spack/pull/32960
+      # ideal:          {root}/{arch}/{hierarchy}/{name}
+      # what we have:   {root}/{hierarchy}/{arch}/{name}
+      projections:
+        # MODULE NAME CONFLICT RESOLUTION
+        mpc: "{architecture}/{name}/{version}-{hash:3}"
+        libpciaccess: "{architecture}/{name}/{version}-{hash:3}"
+        pkgconf: "{architecture}/{name}/{version}-{hash:3}"
+
+        cudnn: "{architecture}/{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
+        ^cuda: "{architecture}/{name}/{version}+cuda{^cuda.version}"
+        all: "{architecture}/{name}/{version}"
+
+      openmpi:
+        suffixes:
+          +legacylaunchers: "mpirun"
+          ^ucx: "ucx"
+      lammps:
+        suffixes:
+          ~asphere~body~class2~colloid~compress~coreshell~dipole: "basic"
+      all:
+        suffixes:
+          ~mpi: "noMPI"
+
+  # MODULE NAME CONFLICT RESOLUTION
+  ############################################################################################
+      openblas:
+        suffixes:
+          +ilp64: "ilp64"
+      boost:
+        suffixes:
+          +system: "system"
+      hdf5:
+        suffixes:
+          +hl: "hl"
+      cairo:
+        suffixes:
+          +gobject: "gob"
+
+  # BUGFIXES
+  ############################################################################################
+      ncurses:
+        filter:
+          environment_blacklist: ["LD_LIBRARY_PATH"]
+
+  # CUSTOM ENV. VARS
+  ############################################################################################
+      all:
+        environment:
+        # The CMake find_package command, such as `find_package(mypkg)`
+        # will search the environment for the mypkg_ROOT environment variable.
+        # This would really help make the CMake experience much smoother.
+        environment:
+          set:
+            "{name}_ROOT": "{prefix}"
+      apptainer:
+        environment:
+          set:
+            APPTAINER_BINDPATH: "/work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets"
+      singularity:
+        environment:
+          set:
+            SINGULARITY_BINDPATH: "/work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets"

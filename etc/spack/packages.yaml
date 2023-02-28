@@ -1,0 +1,169 @@
+packages:
+  all:
+    # TODO make sure package-maintainer loses write privileges to installs
+    permissions:
+      read: world
+      write: user
+      group: package-maintainer
+
+  # FORCE DEFAULTS
+  ############################################################################################
+  # spack likes to ignore preferences, so we make them non negotiable
+  # comment these out if you want to do something different
+  all:
+    require: "%gcc@9.4.0"
+  mpi:
+    require: openmpi
+  blas:
+    require: openblas
+
+  # BUGFIXES
+  ############################################################################################
+  # raises error, cannot set suid with group writable
+  openssh:
+    permissions:
+      write: user
+
+  # DEFAULT VARIANTS
+  ############################################################################################
+  all:
+    variants:
+    #- cuda_arch=52,61,70,75,80,86 # the ones we have in unity as of 8/2022
+    - cuda_arch=52,53,60,61,62,70,72,75,80,86 # all existing arches >= 52 as of 8/2022
+
+  openmpi:
+    variants:
+    # default mpi would like our slurm to have pmix but it doesn't, it'll have to make do with pmi
+    - +pmi
+    - +cuda
+    - fabrics=ucx
+    - schedulers=slurm
+    #- "+legacylaunchers"
+
+  # EXTERNALS
+  ############################################################################################
+  # the texlive spack install was broken at the time
+  texlive:
+    buildable: false
+    externals:
+    - spec: texlive@20220000
+      modules:
+      - texlive/2022
+
+  # it's important that we all use the same slurm
+  # when Unity slurm is updated this version number should also be updated
+  slurm:
+    buildable: false
+    externals:
+    - spec: slurm@20.02.7 target=x86_64
+      prefix: /usr
+    - spec: slurm@20.02.7 target=ppc64le
+      prefix: /usr/lib/powerpc64le-linux-gnu/
+    - spec: slurm@20.02.7 target=aarch64
+      prefix: /usr/lib/aarch64-linux-gnu/
+
+  pmix:
+    buildable: false
+    externals:
+    - spec: pmix@3.1.5-1 target=x86_64
+      prefix: /usr/lib/x86_64-linux-gnu/pmix/
+    - spec: pmix@3.1.5-1 target=ppc64le
+      prefix: /usr/lib/powerpc64le-linux-gnu/pmix/
+    - spec: pmix@3.1.5-1 target=aarch64
+      prefix: /usr/lib/aarch64-linux-gnu/pmix/
+
+  libevent:
+    externals:
+    # I don't want buildable: false because there are other libevents in use
+    # spack can't make 2.1.7 on it's own so the only option is the external
+    - spec: libevent@2.1.7 target=x86_64
+      prefix: /usr/lib/x86_64-linux-gnu/
+    - spec: libevent@2.1.7 target=ppc64le
+      prefix: /usr/lib/powerpc64le-linux-gnu/
+    - spec: libevent@2.1.7 target=aarch64
+      prefix: /usr/lib/aarch64-linux-gnu/
+
+  # For IB nodes; recommended by https://mvapich.cse.ohio-state.edu/userguide/userguide_spack/
+  rdma-core:
+    buildable: False
+    externals:
+    - spec: rdma-core@28.0
+      prefix: /usr
+
+  # `spack external find`
+  gcc:
+    externals:
+    - spec: gcc@9.4.0
+      prefix: /usr
+  tar:
+    externals:
+    - spec: tar@1.30
+      prefix: /usr
+  m4:
+    externals:
+    - spec: m4@1.4.18
+      prefix: /usr
+  automake:
+    externals:
+    - spec: automake@1.16.1
+      prefix: /usr
+  bison:
+    externals:
+    - spec: bison@3.5.1
+      prefix: /usr
+  pkg-config:
+    externals:
+    - spec: pkg-config@0.29.1
+      prefix: /usr
+  texinfo:
+    externals:
+    - spec: texinfo@6.7
+      prefix: /usr
+  binutils:
+    externals:
+    - spec: binutils@2.34
+      prefix: /usr
+  diffutils:
+    externals:
+    - spec: diffutils@3.7
+      prefix: /usr
+  openssl:
+    externals:
+    - spec: openssl@1.1.1f
+      prefix: /usr
+  openssh:
+    externals:
+    - spec: openssh@8.2p1
+      prefix: /usr
+  autoconf:
+    externals:
+    - spec: autoconf@2.69
+      prefix: /usr
+  gawk:
+    externals:
+    - spec: gawk@5.0.1
+      prefix: /usr
+  gmake:
+    externals:
+    - spec: gmake@4.2.1
+      prefix: /usr
+  groff:
+    externals:
+    - spec: groff@1.22.4
+      prefix: /usr
+  git:
+    externals:
+    - spec: git@2.25.1~tcltk
+      prefix: /usr
+  libtool:
+    externals:
+    - spec: libtool@2.4.6
+      prefix: /usr
+  cmake:
+    externals:
+    - spec: cmake@3.16.3
+      prefix: /usr
+  findutils:
+    externals:
+    - spec: findutils@4.7.0
+      prefix: /usr
