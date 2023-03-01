@@ -24,6 +24,7 @@ modules:
       # - compiler
       - mpi
       - blas
+        hash_length: 0
 
       # We use arch_folder: false, and we put {architecture} into the module name projection.
       # This is because Spack uses the arch *family* for arch_folder (for Lua but not for Tcl).
