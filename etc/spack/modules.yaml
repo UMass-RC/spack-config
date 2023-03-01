@@ -1,17 +1,19 @@
 modules:
   # LD_LIBRARY_PATH was removed from modules in spack 0.19
   # this is because meddling with LD_LIBRARY_PATH can break other software (not modules)
-  # We're keeping it because that's what our users have learned to expect from their modules
+  # We're keeping it because that's what our users have learned to expect
   prefix_inspections:
     lib:
-      - "LD_LIBRARY_PATH"
+    - "LD_LIBRARY_PATH"
     lib64:
-      - "LD_LIBRARY_PATH"
+    - "LD_LIBRARY_PATH"
 
   default:
-    enable:: # two colons means "I mean business"
+    # two colons means "I mean business"
+    enable::
       - lmod
-    arch_folder: false # see long comment about 'projections'
+    # see long comment about 'projections'
+    arch_folder: false
 
     lmod:
       core_compilers:
@@ -23,9 +25,6 @@ modules:
       - mpi
       - blas
 
-      all:
-        conflict: ["{name}"] # conflict with modules that go by the same name
-
       # We use arch_folder: false, and we put {architecture} into the module name projection.
       # This is because Spack uses the arch *family* for arch_folder (for Lua but not for Tcl).
       # Because we want our microarchitectures separate, family directories will not do.
@@ -33,7 +32,7 @@ modules:
       # ideal:          {root}/{arch}/{hierarchy}/{name}
       # what we have:   {root}/{hierarchy}/{arch}/{name}
       projections:
-        # MODULE NAME CONFLICT RESOLUTION
+        # add hash to the end to prevent conflict
         mpc: "{architecture}/{name}/{version}-{hash:3}"
         libpciaccess: "{architecture}/{name}/{version}-{hash:3}"
         pkgconf: "{architecture}/{name}/{version}-{hash:3}"
@@ -42,19 +41,25 @@ modules:
         ^cuda: "{architecture}/{name}/{version}+cuda{^cuda.version}"
         all: "{architecture}/{name}/{version}"
 
+
+      all:
+        suffixes:
+          ~mpi: "noMPI"
+        # conflict with modules that go by the same name
+        conflict: ["{name}"]
+        # The CMake find_package command, such as `find_package(mypkg)`
+        # will search the environment for the mypkg_ROOT environment variable.
+        # This would really help make the CMake experience much smoother.
+        environment:
+          set:
+            "{name}_ROOT": "{prefix}"
+
+  # MODULE NAME CONFLICT RESOLUTION
+  ############################################################################################
       openmpi:
         suffixes:
           +legacylaunchers: "mpirun"
           ^ucx: "ucx"
-      lammps:
-        suffixes:
-          ~asphere~body~class2~colloid~compress~coreshell~dipole: "basic"
-      all:
-        suffixes:
-          ~mpi: "noMPI"
-
-  # MODULE NAME CONFLICT RESOLUTION
-  ############################################################################################
       openblas:
         suffixes:
           +ilp64: "ilp64"
@@ -67,6 +72,9 @@ modules:
       cairo:
         suffixes:
           +gobject: "gob"
+      lammps:
+        suffixes:
+          ~asphere~body~class2~colloid~compress~coreshell~dipole: "basic"
 
   # BUGFIXES
   ############################################################################################
@@ -76,14 +84,6 @@ modules:
 
   # CUSTOM ENV. VARS
   ############################################################################################
-      all:
-        environment:
-        # The CMake find_package command, such as `find_package(mypkg)`
-        # will search the environment for the mypkg_ROOT environment variable.
-        # This would really help make the CMake experience much smoother.
-        environment:
-          set:
-            "{name}_ROOT": "{prefix}"
       apptainer:
         environment:
           set:

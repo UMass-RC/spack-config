@@ -5,6 +5,9 @@ packages:
       read: world
       write: user
       group: package-maintainer
+    variants:
+    #- cuda_arch=52,61,70,75,80,86 # the ones we have in unity as of 8/2022
+    - cuda_arch=52,53,60,61,62,70,72,75,80,86 # all existing arches >= 52 as of 8/2022
 
   # FORCE DEFAULTS
   ############################################################################################
@@ -26,11 +29,6 @@ packages:
 
   # DEFAULT VARIANTS
   ############################################################################################
-  all:
-    variants:
-    #- cuda_arch=52,61,70,75,80,86 # the ones we have in unity as of 8/2022
-    - cuda_arch=52,53,60,61,62,70,72,75,80,86 # all existing arches >= 52 as of 8/2022
-
   openmpi:
     variants:
     # default mpi would like our slurm to have pmix but it doesn't, it'll have to make do with pmi
