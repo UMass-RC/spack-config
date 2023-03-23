@@ -70,7 +70,7 @@ modules:
   ############################################################################################
       ncurses:
         filter:
-          environment_blacklist: [LD_LIBRARY_PATH]
+          exclude_env_vars: [LD_LIBRARY_PATH]
 
   # CUSTOM ENV. VARS
   ############################################################################################
@@ -90,8 +90,7 @@ modules:
     - lmod
     arch_folder: false
     roots:
-      lmod:
-        $spack/share/spack/lmod/linux-ubuntu20.04-cascadelake
+      lmod: $spack/share/spack/lmod/linux-ubuntu20.04-cascadelake
     lmod:
       include:
-      - 'target=cascadelake'
+      - target=cascadelake
