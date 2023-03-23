@@ -92,4 +92,5 @@ modules:
       lmod:
         $spack/share/spack/lmod/linux-ubuntu20.04-cascadelake
     lmod:
-      include: "target=cascadelake"
+      include:
+      - "target=cascadelake"
