@@ -8,13 +8,7 @@ modules:
     lib64:
     - "LD_LIBRARY_PATH"
 
-  default:
-    # two colons means "I mean business"
-    enable::
-      - lmod
-    # see long comment about 'projections'
-    arch_folder: false
-
+  default_template: &anchor
     lmod:
       core_compilers:
       - "gcc@9.4.0"
@@ -26,21 +20,15 @@ modules:
       - blas
       hash_length: 0
 
-      # We use arch_folder: false, and we put {architecture} into the module name projection.
-      # This is because Spack uses the arch *family* for arch_folder (for Lua but not for Tcl).
-      # Because we want our microarchitectures separate, family directories will not do.
-      # https://github.com/spack/spack/pull/32960
-      # ideal:          {root}/{arch}/{hierarchy}/{name}
-      # what we have:   {root}/{hierarchy}/{arch}/{name}
       projections:
         # add hash to the end to prevent conflict
-        mpc: "{architecture}/{name}/{version}-{hash:3}"
-        libpciaccess: "{architecture}/{name}/{version}-{hash:3}"
-        pkgconf: "{architecture}/{name}/{version}-{hash:3}"
+        mpc: "{name}/{version}-{hash:3}"
+        libpciaccess: "{name}/{version}-{hash:3}"
+        pkgconf: "{name}/{version}-{hash:3}"
 
-        cudnn: "{architecture}/{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
-        ^cuda: "{architecture}/{name}/{version}+cuda{^cuda.version}"
-        all: "{architecture}/{name}/{version}"
+        cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
+        ^cuda: "{name}/{version}+cuda{^cuda.version}"
+        all: "{name}/{version}"
 
 
       all:
@@ -93,3 +81,15 @@ modules:
         environment:
           set:
             SINGULARITY_BINDPATH: "/work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets"
+
+
+  cascadelake:
+    <<: *anchor # include the default config
+    enable::
+    - lmod
+    arch_folder: false
+    roots:
+      lmod:
+        $spack/share/spack/lmod/linux-ubuntu20.04-cascadelake
+    lmod:
+      include: "target=cascadelake"
