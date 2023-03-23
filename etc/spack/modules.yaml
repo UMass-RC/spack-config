@@ -11,6 +11,7 @@ modules:
   default_template: &anchor
     enable: [] # disable module generation for default template
     lmod:
+      include: [] # enable: [] didn't work so maybe this will work
       core_compilers:
       - gcc@9.4.0
       hierarchy:
@@ -86,8 +87,7 @@ modules:
 
   cascadelake:
     <<: *anchor # include the default config
-    enable::
-    - lmod
+    enable:: [lmod]
     arch_folder: false
     roots:
       lmod: $spack/share/spack/lmod/linux-ubuntu20.04-cascadelake
