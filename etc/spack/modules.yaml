@@ -4,15 +4,15 @@ modules:
   # We're keeping it because that's what our users have learned to expect
   prefix_inspections:
     lib:
-    - "LD_LIBRARY_PATH"
+    - LD_LIBRARY_PATH
     lib64:
-    - "LD_LIBRARY_PATH"
+    - LD_LIBRARY_PATH
 
   default_template: &anchor
     enable: [] # disable module generation for default template
     lmod:
       core_compilers:
-      - "gcc@9.4.0"
+      - gcc@9.4.0
       hierarchy:
       # if I add 'compiler' here, for some reason it breaks the whole hierarchy
       # but if I don't add 'compiler' here, compilers are part of the hierarchy regardless
@@ -23,65 +23,65 @@ modules:
 
       projections:
         # add hash to the end to prevent conflict
-        mpc: "{name}/{version}-{hash:3}"
-        libpciaccess: "{name}/{version}-{hash:3}"
-        pkgconf: "{name}/{version}-{hash:3}"
+        mpc: '{name}/{version}-{hash:3}'
+        libpciaccess: '{name}/{version}-{hash:3}'
+        pkgconf: '{name}/{version}-{hash:3}''
 
-        cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
-        ^cuda: "{name}/{version}+cuda{^cuda.version}"
-        all: "{name}/{version}"
+        cudnn: '{name}/{version}' # don't want 'cudnn/8.2.4.15-11.4+cuda11.4.2'
+        ^cuda: '{name}/{version}+cuda{^cuda.version}'
+        all: '{name}/{version}'
 
 
       all:
         suffixes:
-          ~mpi: "noMPI"
+          ~mpi: noMPI
         # conflict with modules that go by the same name
-        conflict: ["{name}"]
+        conflict: ['{name}']
         # The CMake find_package command, such as `find_package(mypkg)`
         # will search the environment for the mypkg_ROOT environment variable.
         # This would really help make the CMake experience much smoother.
         environment:
           set:
-            "{name}_ROOT": "{prefix}"
+            '{name}_ROOT': '{prefix}'
 
   # MODULE NAME CONFLICT RESOLUTION
   ############################################################################################
       openmpi:
         suffixes:
-          +legacylaunchers: "mpirun"
-          ^ucx: "ucx"
+          +legacylaunchers: mpirun
+          ^ucx: ucx
       openblas:
         suffixes:
-          +ilp64: "ilp64"
+          +ilp64: ilp64
       boost:
         suffixes:
-          +system: "system"
+          +system: system
       hdf5:
         suffixes:
-          +hl: "hl"
+          +hl: hl
       cairo:
         suffixes:
-          +gobject: "gob"
+          +gobject: gob
       lammps:
         suffixes:
-          ~asphere~body~class2~colloid~compress~coreshell~dipole: "basic"
+          ~asphere~body~class2~colloid~compress~coreshell~dipole: basic
 
   # BUGFIXES
   ############################################################################################
       ncurses:
         filter:
-          environment_blacklist: ["LD_LIBRARY_PATH"]
+          environment_blacklist: [LD_LIBRARY_PATH]
 
   # CUSTOM ENV. VARS
   ############################################################################################
       apptainer:
         environment:
           set:
-            APPTAINER_BINDPATH: "/work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets"
+            APPTAINER_BINDPATH: /work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets
       singularity:
         environment:
           set:
-            SINGULARITY_BINDPATH: "/work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets"
+            SINGULARITY_BINDPATH: /work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets
 
 
   cascadelake:
@@ -94,4 +94,4 @@ modules:
         $spack/share/spack/lmod/linux-ubuntu20.04-cascadelake
     lmod:
       include:
-      - "target=cascadelake"
+      - 'target=cascadelake'
