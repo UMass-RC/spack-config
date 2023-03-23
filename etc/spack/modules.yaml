@@ -9,8 +9,8 @@ modules:
     - "LD_LIBRARY_PATH"
 
   default_template: &anchor
+    enable: [] # disable module generation for default template
     lmod:
-      enable: []
       core_compilers:
       - "gcc@9.4.0"
       hierarchy:
