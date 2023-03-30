@@ -12,8 +12,6 @@ modules:
     # two colons means "I mean business"
     'enable:':
     - lmod
-    # see long comment about 'projections'
-    arch_folder: false
 
     lmod:
       # no more modules for microarch specific packages
