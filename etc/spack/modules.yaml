@@ -76,6 +76,9 @@ modules:
       lammps:
         suffixes:
           ~asphere~body~class2~colloid~compress~coreshell~dipole: basic
+      ffmpeg:
+        suffixes:
+          libx264: libx264
 
   # BUGFIXES
   ############################################################################################
