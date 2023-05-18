@@ -96,10 +96,12 @@ end
 cat_file_if_exists("/modules/modulefiles/"..NAME.."/"..VERSION.."_README.txt")
 
 {% if spec.name == "cuda" %}
-local which_smi = capture("which nvidia-smi")
-if (which_smi == "") then
-    LmodWarning("this is not a GPU node!")
-end
+if (mode() == "load") then
+    local which_smi = capture("which nvidia-smi")
+    if (which_smi == "") then
+        LmodWarning("this is not a GPU node!")
+    end
+ end
 {% endif %}
 
 {% endblock %}
