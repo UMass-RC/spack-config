@@ -92,6 +92,7 @@ end
 if (mode() == "unload") then
     LmodMessage("unloading "..NAME.." version "..VERSION)
 end
+
 if (mode() == "load") then
     local my_readme_path = "/modules/modulefiles/"..NAME.."/"..VERSION.."_README.txt"
     if (isFile(my_readme_path)) then
@@ -103,8 +104,7 @@ end
 
 {% if spec.name == "cuda" %}
 if (mode() == "load") then
-    local which_smi = capture("which nvidia-smi")
-    if (which_smi == "") then
+    if (posix.stat("/dev/nvidiactl") == nil) then
         LmodWarning("this is not a GPU node!")
     end
 end
