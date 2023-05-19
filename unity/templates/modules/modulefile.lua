@@ -88,10 +88,10 @@ local NAME = "{{spec.name}}"
 local VERSION = "{{spec.version}}"
 -- this relies on custom Lua functions defined in /etc/lmod/lmod_config.lua
 if (mode() == "load") then
-  echo("loading "..NAME.." version "..VERSION)
+  LmodMessage("loading "..NAME.." version "..VERSION)
 end
 if (mode() == "unload") then
-  echo("unloading "..NAME.." version "..VERSION)
+    LmodMessage("unloading "..NAME.." version "..VERSION)
 end
 cat_file_if_exists("/modules/modulefiles/"..NAME.."/"..VERSION.."_README.txt")
 
@@ -101,7 +101,7 @@ if (mode() == "load") then
     if (which_smi == "") then
         LmodWarning("this is not a GPU node!")
     end
- end
+end
 {% endif %}
 
 {% endblock %}
