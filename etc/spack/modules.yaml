@@ -25,6 +25,7 @@ modules:
       - arch=zen2
       - arch=skylake_avx512
       - arch=haswell
+      - arch=armv8.2a
       core_compilers:
       - gcc@9.4.0
       hierarchy:
