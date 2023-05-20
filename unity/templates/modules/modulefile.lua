@@ -87,7 +87,7 @@ unsetenv("{{ cmd.name }}")
 local NAME = "{{spec.name}}"
 local VERSION = "{{spec.version}}"
 if (mode() == "load") then
-  LmodMessage("loading "..NAME.." version "..VERSION)
+    LmodMessage("loading "..NAME.." version "..VERSION)
 end
 if (mode() == "unload") then
     LmodMessage("unloading "..NAME.." version "..VERSION)
