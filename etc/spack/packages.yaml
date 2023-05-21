@@ -24,6 +24,9 @@ packages:
   openssh:
     permissions:
       write: user
+    externals:
+    - spec: openssh@8.2p1
+      prefix: /usr
 
   # DEFAULT VARIANTS
   ############################################################################################
@@ -128,10 +131,11 @@ packages:
     externals:
     - spec: openssl@1.1.1f
       prefix: /usr
-  openssh:
-    externals:
-    - spec: openssh@8.2p1
-      prefix: /usr
+  # moved up to remove duplicate key `openssh`
+  # openssh:
+  #   externals:
+  #   - spec: openssh@8.2p1
+  #     prefix: /usr
   autoconf:
     externals:
     - spec: autoconf@2.69
