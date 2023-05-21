@@ -10,11 +10,8 @@ packages:
     - cuda_arch=52,53,60,61,62,70,72,75,80,86 # all existing arches >= 52 as of 8/2022
     - fabrics=ucx
 
-  # FORCE DEFAULTS
-  ############################################################################################
-  # spack likes to ignore preferences, so we make them non negotiable
-  # comment these out if you want to do something different
-  all:
+    # spack likes to ignore preferences, so we make them non negotiable
+    # comment these out if you want to do something different
     require: "%gcc@9.4.0"
   mpi:
     require: openmpi
