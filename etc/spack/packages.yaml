@@ -128,6 +128,7 @@ packages:
     - spec: diffutils@3.7
       prefix: /usr
   openssl:
+    buildable: false
     externals:
     - spec: openssl@1.1.1f
       prefix: /usr
