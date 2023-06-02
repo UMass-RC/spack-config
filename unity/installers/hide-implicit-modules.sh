@@ -1,3 +1,4 @@
+#!/bin/bash
 #SBATCH -c 1
 #SBATCH -t 4:00:00
 #SBATCH -p cpu-preempt
