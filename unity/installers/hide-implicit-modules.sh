@@ -15,5 +15,5 @@ source ../../share/spack/setup-env.sh
 
 spack_module_dir="$(dirname $(dirname $PWD))/share/spack/lmod" # ../../share/spack/lmod
 for arch in $(ls $spack_module_dir | grep ^linux-ubuntu); do
-    ./hide-implicit-modules-arch.py $arch | sed "s|$spack_module_dir|/modules/spack_modulefiles/|g" > ../../share/spack/lmod/$arch/Core/.modulerc.lua
+    ./hide-implicit-modules-arch.py $arch | sed "s|$spack_module_dir|/modules/spack_modulefiles|g" > ../../share/spack/lmod/$arch/Core/.modulerc.lua
 done
