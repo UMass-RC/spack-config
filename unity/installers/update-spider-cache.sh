@@ -19,7 +19,7 @@ MODULEPATH="/modules/modulefiles"
 # the microarch modules no longer cover production spack
 # add each architecture's Core directory to modulepath
 for arch in $(ls ../../share/spack/lmod/ | grep ^linux-ubuntu); do
-    prepend_modulepath($(dirname $(dirname $PWD))/share/spack/lmod/$arch/Core)
+    prepend_modulepath ($(dirname $(dirname $PWD))/share/spack/lmod/$arch/Core)
 done
 
 # -D debug
