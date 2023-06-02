@@ -35,15 +35,15 @@ def shell_command(command: str, timeout_s: int) -> Tuple[str, str]:
     return str(process.stdout, 'UTF-8'), str(process.stderr, 'UTF-8')
 
 if len(sys.argv) != 2:
-    print(red(lua_comment("invalid arguments!")))
+    print(lua_comment(red("invalid arguments!")))
     exit(1)
 ARCH=sys.argv[1]
 
-print(red(lua_comment("this is the output from Unity's hide-implicit-modules.py")))
-print(red(lua_comment("https://github.com/UMass-RC/spack-config/tree/main/unity/installers")))
-print(red(lua_comment(shell_command("which spack", 1)[0])))
+print(lua_comment(red("this is the output from Unity's hide-implicit-modules.py")))
+print(lua_comment(red("https://github.com/UMass-RC/spack-config/tree/main/unity/installers")))
+print(lua_comment(red(shell_command("which spack", 1)[0])))
 find_cmd=f"spack find --json --implicit arch={ARCH}"
-print(red(lua_comment(find_cmd)))
+print(lua_comment(red(find_cmd)))
 stdout, stderr = shell_command(find_cmd, 60)
 modules_json_parser = json.loads(stdout)
 for module in modules_json_parser:
@@ -54,10 +54,10 @@ for module in modules_json_parser:
         stdout, stderr = shell_command(find_module_cmd, 60)
         module_location = stdout.strip()
     except subprocess.CalledProcessError:
-        print(red(lua_comment(f"ERROR: command failed: {find_module_cmd}")))
+        print(lua_comment(red(f"ERROR: command failed: {find_module_cmd}")))
         continue
     if not os.path.exists(module_location):
-        print(red(lua_comment("output of search is something other than the location of a modulefile!")))
-        print(red(lua_comment(module_location)))
+        print(lua_comment(red("output of search is something other than the location of a modulefile!")))
+        print(lua_comment(red(module_location)))
         continue
     print(f"hide_modulefile(\"{module_location}\")")
