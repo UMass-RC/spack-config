@@ -20,6 +20,7 @@ MODULEPATH="/modules/modulefiles"
 # add each architecture's Core directory to modulepath
 for arch in $(ls ../../share/spack/lmod/ | grep ^linux-ubuntu); do
     prepend_modulepath($(dirname $(dirname $PWD))/share/spack/lmod/$arch/Core)
+done
 
 # -D debug
 source /usr/share/lmod/lmod/libexec/update_lmod_system_cache_files -D $MODULEPATH
