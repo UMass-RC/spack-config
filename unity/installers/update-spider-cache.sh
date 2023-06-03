@@ -1,4 +1,7 @@
 #!/bin/bash
+#SBATCH -c 1
+#SBATCH -p cpu-preempt
+
 prepend_modulepath() {
     if [ ! -d "$1" ]; then
         echo "\"$1\" does not exist!"
