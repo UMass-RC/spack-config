@@ -16,5 +16,5 @@ tar -xvf ./spack-${version}.tar.gz --strip-components=1
 # deploy to production:
 source /modules/spack/${VERISON}/share/spack/setup-env.sh
 spack module lmod refresh -y
-rm /modules/spack/latest; ln -s /modules/spack/${VERSION} /modules/spack/latest
+rm /modules/spack/latest && ln -s /modules/spack/${VERSION} /modules/spack/latest
 ```
