@@ -50,7 +50,7 @@ for module in modules_json_parser:
     try:
         # I think it might be faster to look for name@version/hash rather than just /hash
         spec_str = f"{module['name']}@{module['version']}/{module['hash'][:10]}"
-        find_module_cmd = f"spack module lmod find --full-path {spec_str}"
+        find_module_cmd = f"spack module {TCL_OR_LMOD} find --full-path {spec_str}"
         stdout, stderr = shell_command(find_module_cmd, 60)
         module_location = stdout.strip()
     except subprocess.CalledProcessError:
