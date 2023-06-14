@@ -12,4 +12,9 @@ git clone https://github.com/UMass-RC/spack-config.git .
 # download and extract spack
 wget https://github.com/spack/spack/releases/download/v${version}/spack-${version}.tar.gz
 tar -xvf ./spack-${version}.tar.gz --strip-components=1
+
+# deploy to production:
+source /modules/spack/${VERISON}/share/spack/setup-env.sh
+spack module lmod refresh -y
+rm /modules/spack/latest; ln -s /modules/spack/${VERSION} /modules/spack/latest
 ```
