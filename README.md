@@ -4,9 +4,9 @@ Edits to this config should be made on your local machine, pushed here, and pull
 
 Deployment:
 ```sh
-version="0.19.1"
-mkdir /modules/spack-${version}
-cd /modules/spack-${version}
+version="0.20.0"
+mkdir /modules/spack/${version}
+cd /modules/spack/${version}
 # clone this repo via HTTPS, not SSH
 git clone https://github.com/UMass-RC/spack-config.git .
 # download and extract spack
