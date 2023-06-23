@@ -8,7 +8,9 @@ packages:
     variants:
     #- cuda_arch=52,61,70,75,80,86 # the ones we have in unity as of 8/2022
     - cuda_arch=52,53,60,61,62,70,72,75,80,86 # all existing arches >= 52 as of 8/2022
-    - fabrics=ucx
+    #- fabrics=ucx
+    # Can't be set here because of conflict between what ucx and openfabrics provide
+    # - fabrics=verbs,psm3,rxm,rxd,tcp,shm
 
     # spack likes to ignore preferences, so we make them non negotiable
     # comment these out if you want to do something different
@@ -39,6 +41,210 @@ packages:
     - fabrics=ucx
     - schedulers=slurm
     #- "+legacylaunchers"
+
+  ucx:
+    variants:
+    - +cm
+    - +verbs
+    - +rc
+    - +ud
+    - +dc
+    - +cma
+    - +dm
+    - +cuda
+    - +gdrcopy
+
+  opencv:
+    variants:
+      - +annotation
+      - +avfoundation
+      - +barcode
+      - +bgsegm
+      - +bioinspired
+      - +calib3d
+      - +cap_ios
+      - +carotene
+      - +ccalib
+      - +clp
+      - +cpufeatures
+      - +createsamples
+      - +cublas
+      - +cuda
+      - +cudaarithm
+      - +cudabgsegm
+      - +cudacodec
+      - +cudafeatures2d
+      - +cudafilters
+      - +cudaimgproc
+      - +cudalegacy
+      - +cudaobjdetect
+      - +cudaoptflow
+      - +cudastereo
+      - +cudawarping
+      - +cudev
+      - +cudnn
+      - +cufft
+      - +cvv
+      - +datasets
+      - +directx
+      - +dnn
+      - +dnn_objdetect
+      - +dnn_superres
+      - +dpm
+      - +dshow
+      - +eigen
+      - +face
+      - +fast-math
+      - +features2d
+      - +ffmpeg
+      - +flann
+      - +freetype
+      - +fuzzy
+      - +hdf
+      - +hfs
+      - +highgui
+      - +hpx
+      - +img_hash
+      - +imgcodec_hdr
+      - +imgcodec_pfm
+      - +imgcodec_pxm
+      - +imgcodec_sunraster
+      - +imgcodecs
+      - +imgproc
+      - +intensity_transform
+      - +interactive-calibration
+      - +ipo
+      - +itt
+      - +jasper
+      - +jpeg
+      - +lapack
+      - +line_descriptor
+      - +mcc
+      - +ml
+      - +model-diagnostics
+      - +msmf
+      - +msmf_dxva
+      - +objdetect
+      - +onnx
+      - +opencl
+      - +openexr
+      - +opengl
+      - +openjpeg
+      - +openmp
+      - +optflow
+      - +phase_unwrapping
+      - +photo
+      - +plaidml
+      - +plot
+      - +png
+      - +protobuf
+      - +pthreads_pf
+      - +quality
+      - +quirc
+      - +rapid
+      - +reg
+      - +rgbd
+      - +saliency
+      - +stereo
+      - +stitching
+      - +structured_light
+      - +superres
+      - +surface_matching
+      - +tbb
+      - +tengine
+      - +tesseract
+      - +text
+      - +tiff
+      - +tracking
+      - +traincascade
+      - +ts
+      - +v4l
+      - +version
+      - +video
+      - +videoio
+      - +videostab
+      - +visualisation
+      - +viz
+      - +vtk
+      - +vulcan
+      - +webp
+      - +wechat_qrcode
+      - +win32ui
+      - +world
+      - +xfeatures2d
+      - +ximgproc
+      - +xobjdetect
+      - +xphoto
+
+  lammps:
+    # noemclature may have changed regarding user- prefix in some versions
+    variants:
+      - +asphere
+      - +body
+      - +class2
+      - +colloid
+      - +compress
+      - +coreshell~cuda~cuda_mps
+      - +dipole
+      - +granular
+      - +kokkos
+      - +kspace
+      - +manybody
+      - +mc
+      - +misc
+      - +molecule
+      - +mpiio
+      - +peri
+      - +python
+      - +qeq
+      - +replica
+      - +rigid
+      - +shock
+      - +snap
+      - +spin
+      - +srd
+      - +voronoi
+      - +user-atc
+      - +user-bocs
+      - +user-cgdna
+      - +user-cgsdk
+      - +user-colvars
+      - +user-diffraction
+      - +user-dpd
+      - +user-drude
+      - +user-eff
+      - +user-fep
+      - +user-h5md
+      - +user-lb
+      - +user-manifold
+      - +user-meamc
+      - +user-meso
+      - +user-mgpt
+      - +user-misc
+      - +user-mofff
+      - +user-molfile
+      - +user-netcdf
+      - +user-phonon
+      - +user-plumed
+      - +user-ptm
+      - +user-qtb
+      - +user-reaxc
+      - +user-reaxff
+      - +user-scafacos
+      - +user-smd
+      - +user-smtbq
+      - +user-sph
+      - +user-tally
+      - +user-uef
+      - +user-yaff
+
+  charmpp:
+    variants: +cuda backend=multicore
+
+  namd:
+    variants:
+      - +cuda
+      - backend=ucx
 
   # EXTERNALS
   ############################################################################################
