@@ -99,3 +99,8 @@ modules:
         environment:
           set:
             SINGULARITY_BINDPATH: /work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets
+
+      blast-plus:
+        environment:
+          set:
+            BLASTDB: /datasets/bio/ncbi-db
