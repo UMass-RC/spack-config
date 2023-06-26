@@ -1,5 +1,5 @@
 
-PREFIX="/modules/spack-0.19.1/unity/installers"
+PREFIX="/modules/spack/0.20.0/unity/installers"
 ARCHITECTURES="x86_64,ppc64le,aarch64"
 #ARCHITECTURES="$ARCHITEECTURES,cascadelake,haswell,icelake,skylake_avx512,zen,zen2"
 CPUS_PER_TASK="4"
