@@ -139,11 +139,11 @@ BATCH_SCRIPT
 IFS="," # comma separated list
 for arch in $ARCHITECTURES; do
 	if [ -z $(echo $arch | xargs) ]; then continue; fi # ignore blank
- 	TMPDIR_NAME=$SPACK_SPEC_CLEANED-$arch-$(echo $RANDOM | md5sum | head -c 5)
 	SPACK_INSTALL_ARGS="$FRESH_OR_REUSE -y --keep-stage --fail-fast --source $EXTRA_SPACK_ARGS $PACKAGE_SPEC target=$arch"
 	# format the spec so that it's suitable for the name of a log file
 	PACKAGE_SPEC_CLEANED=${PACKAGE_SPEC// /-} # replace [:space:] with -
 	PACKAGE_SPEC_CLEANED=${PACKAGE_SPEC_CLEANED/\//-} # replace / with -
+	TMPDIR_NAME=$PACKAGE_SPEC_CLEANED-$arch-$(echo $RANDOM | md5sum | head -c 5)
 	# include time so that `ls` sorts chronologically
 	LOG_FILE="$PREFIX/logs/$(date +%s)-${PACKAGE_SPEC_CLEANED}-${arch}.out"
 	touch $LOG_FILE # make sure we have permissions to the log file
