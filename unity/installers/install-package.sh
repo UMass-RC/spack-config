@@ -139,6 +139,7 @@ BATCH_SCRIPT
 IFS="," # comma separated list
 for arch in $ARCHITECTURES; do
 	if [ -z $(echo $arch | xargs) ]; then continue; fi # ignore blank
+ 	TMPDIR_NAME=$SPACK_SPEC_CLEANED-$arch-$(echo $RANDOM | md5sum | head -c 5)
 	SPACK_INSTALL_ARGS="$FRESH_OR_REUSE -y --keep-stage --fail-fast --source $EXTRA_SPACK_ARGS $PACKAGE_SPEC target=$arch"
 	# format the spec so that it's suitable for the name of a log file
 	PACKAGE_SPEC_CLEANED=${PACKAGE_SPEC// /-} # replace [:space:] with -
@@ -147,7 +148,7 @@ for arch in $ARCHITECTURES; do
 	LOG_FILE="$PREFIX/logs/$(date +%s)-${PACKAGE_SPEC_CLEANED}-${arch}.out"
 	touch $LOG_FILE # make sure we have permissions to the log file
 	log_files+=("$LOG_FILE")
-	this_job="sbatch --job-name=\"$PACKAGE_SPEC-$arch\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" --cpus-per-task=\"$CPUS_PER_TASK\" --mem=\"$MEMORY\" --time=\"$TIME\" -N 1 --export=\"SPACK_INSTALL_ARGS=$SPACK_INSTALL_ARGS,TMPDIR_NAME=$PACKAGE_SPEC_CLEANED\" --constraint=$arch $EXTRA_SBATCH_ARGS $BATCH_SCRIPT_PATH"
+	this_job="sbatch --job-name=\"$PACKAGE_SPEC-$arch\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" --cpus-per-task=\"$CPUS_PER_TASK\" --mem=\"$MEMORY\" --time=\"$TIME\" -N 1 --export=SPACK_INSTALL_ARGS,TMPDIR_NAME --constraint=$arch $EXTRA_SBATCH_ARGS $BATCH_SCRIPT_PATH"
 	echo "$this_job"
 	echo
 	JOBS+=("$this_job")
