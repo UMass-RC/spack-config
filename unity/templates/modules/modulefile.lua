@@ -93,15 +93,6 @@ if (mode() == "unload") then
     LmodMessage("unloading "..NAME.." version "..VERSION)
 end
 
-if (mode() == "load") then
-    local my_readme_path = "/modules/modulefiles/"..NAME.."/"..VERSION.."_README.txt"
-    if (isFile(my_readme_path)) then
-        local my_readme = io.open(my_readme_path,"r")
-        LmodMessage(my_readme:read("*a"))
-        io.close(my_readme)
-    end
-end
-
 {% if spec.name == "cuda" %}
 if (mode() == "load") then
     if (posix.stat("/dev/nvidiactl") == nil) then
