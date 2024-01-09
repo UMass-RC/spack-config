@@ -139,6 +139,7 @@ packages:
       - +png
       - +protobuf
       - +pthreads_pf
+      - +python3
       - +quality
       - +quirc
       - +rapid
@@ -170,7 +171,6 @@ packages:
       - +webp
       - +wechat_qrcode
       - +win32ui
-      - +world
       - +xfeatures2d
       - +ximgproc
       - +xobjdetect
