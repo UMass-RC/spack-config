@@ -3,6 +3,9 @@
 #SBATCH --mem=16G
 #SBATCH -p cpu-preempt
 #SBATCH -t 8:00:00
+#SBATCH -o logs/cleanup-%j.log
+
+echo "jobid $SLURM_JOB_ID on host $(hostname) by user $(whoami) on $(date)"
 
 SPACK_PREFIX=/modules/spack/0.20.0/
 
@@ -16,3 +19,5 @@ source $SPACK_PREFIX/share/spack/setup-env.sh
 cd $SPACK_PREFIX/unity/installers
 spack gc -y # uninstall packages that were needed only at build time
 ./update-spider-cache.sh # update Lmod spider cache
+
+echo "done!"
