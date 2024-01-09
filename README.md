@@ -17,10 +17,10 @@ cd ..
 wget https://github.com/spack/spack/releases/download/v${version}/spack-${version}.tar.gz
 tar -xf ./spack-${version}.tar.gz --strip-components=1
 # install config files
-ln -s unity/config/* etc/spack/
+ln -s $PWD/unity/config/* ./etc/spack/
 
 # deploy to production:
-source /modules/spack/${VERISON}/share/spack/setup-env.sh
+source ./share/spack/setup-env.sh
 spack module lmod refresh -y
 rm /modules/spack/latest && ln -s /modules/spack/${VERSION} /modules/spack/latest
 ```
