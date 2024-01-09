@@ -46,6 +46,7 @@ packages:
   libfabric:
     variants:
     - fabrics=verbs,psm3,rxm,rxd,tcp,shm
+
   ucx:
     variants:
     - +cm
@@ -413,12 +414,6 @@ packages:
     externals:
     - spec: openjdk@11.0.20.1_1-post-Ubuntu-0ubuntu120.04
       prefix: /usr
-  libfabric:
-    externals:
-    - spec: libfabric@1.18.0 fabrics=psm3,shm,tcp
-      prefix: /modules/spack/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/libfabric-1.18.0-v4x3shqfyafo7drcll2ofg536ystqdwn
-    variants:
-    - fabrics=verbs,psm3,rxm,rxd,tcp,shm
   libfuse:
     externals:
     - spec: libfuse@2.9.9
