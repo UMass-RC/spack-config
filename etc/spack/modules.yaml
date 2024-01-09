@@ -37,10 +37,6 @@ modules:
       hash_length: 0
 
       projections:
-        # add hash to the end to prevent conflict
-        mpc: '{name}/{version}-{hash:3}'
-        libpciaccess: '{name}/{version}-{hash:3}'
-        pkgconf: '{name}/{version}-{hash:3}'
         cudnn: '{name}/{version}' # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
         ^cuda: '{name}/{version}+cuda{^cuda.version}'
         ^python: '{name}/{version}+py{^python.version}'
@@ -75,15 +71,9 @@ modules:
       hdf5:
         suffixes:
           +hl: hl
-      cairo:
-        suffixes:
-          +gobject: gob
       lammps:
         suffixes:
           ~asphere~body~class2~colloid~compress~coreshell~dipole: basic
-      ffmpeg:
-        suffixes:
-          +libx264: libx264
 
   # BUGFIXES
   ############################################################################################
