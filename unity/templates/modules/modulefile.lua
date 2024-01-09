@@ -101,4 +101,45 @@ if (mode() == "load") then
 end
 {% endif %}
 
+{% if spec.name == "apptainer" %}
+if (mode() == "load") then
+  local username = os.getenv("USER")
+  local groups_cmd_output = capture("/usr/bin/groups")
+
+  local potential_cache_dirs = {}
+  for group in groups_cmd_output:split() do
+      if group ~= nil and group ~= "" then
+          table.insert(potential_cache_dirs,
+              pathJoin("/work", group, ".apptainer/cache")
+          )
+          table.insert(potential_cache_dirs,
+              pathJoin("/work", group, username, ".apptainer/cache")
+          )
+      end
+  end
+
+  local found_cache_dirs = {}
+  for _, path in ipairs(potential_cache_dirs) do
+      if isDir(path) then
+          table.insert(found_cache_dirs, path)
+      end
+  end
+
+  if #found_cache_dirs == 0 then
+      LmodMessage("")
+      LmodMessage("No apptainer cache directory found. To prevent apptainer from filling up your home directory, you can create a new directory at `/work/pi_<your_pi_name>/.apptainer/cache` and reload the module.")
+  else
+      setenv("APPTAINER_CACHEDIR", found_cache_dirs[1]) -- index starts at 1
+      if #found_cache_dirs > 1 then
+          LmodMessage("")
+          LmodMessage("Multiple apptainer cache directories found:")
+          for _, dir in ipairs(found_cache_dirs) do
+              LmodMessage("* "..dir)
+          end
+          LmodMessage("chosen directory: "..found_cache_dirs[1])
+          LmodMessage("you can choose another directory by setting the APPTIAINER_CACHEDIR environment variable.")
+      end
+  end
+end
+{% endif %}
 {% endblock %}
