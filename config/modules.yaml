@@ -57,21 +57,10 @@ modules:
           set:
             '{name}_ROOT': '{prefix}'
 
-  # MODULE NAME CONFLICT RESOLUTION
-  ############################################################################################
       openmpi:
         suffixes:
           +legacylaunchers: mpirun
           ^ucx: ucx
-      openblas:
-        suffixes:
-          +ilp64: ilp64
-      boost:
-        suffixes:
-          +system: system
-      hdf5:
-        suffixes:
-          +hl: hl
       lammps:
         suffixes:
           ~asphere~body~class2~colloid~compress~coreshell~dipole: basic
