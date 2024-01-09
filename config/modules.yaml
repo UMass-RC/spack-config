@@ -47,6 +47,8 @@ modules:
       all:
         suffixes:
           ~mpi: noMPI
+          ~cuda: noCuda
+          ~python: noPython
         # conflict with modules that go by the same name
         conflict: ['{name}']
         # The CMake find_package command, such as `find_package(mypkg)`
