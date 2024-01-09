@@ -25,4 +25,6 @@ ln -s /modules/spack/${version}/unity/config/* ./etc/spack/
 source ./share/spack/setup-env.sh
 spack module lmod refresh -y
 rm /modules/spack/latest && ln -s /modules/spack/${VERSION} /modules/spack/latest
+cd /modules/spack/${version}/${system_name}
+./update-spider-cache.sh
 ```
