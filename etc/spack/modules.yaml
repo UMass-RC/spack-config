@@ -16,6 +16,7 @@ modules:
     - lmod
 
     lmod:
+    hide_implicit: true
       # no more modules for microarch specific packages
       exclude:
       - arch=cascadelake

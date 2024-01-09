@@ -15,6 +15,4 @@ set -x
 source $SPACK_PREFIX/share/spack/setup-env.sh
 cd $SPACK_PREFIX/unity/installers
 spack gc -y # uninstall packages that were needed only at build time
-./hide-implicit-modules.sh # hide implicit modules (installed as dependencies) from Lmod
 ./update-spider-cache.sh # update Lmod spider cache
-
