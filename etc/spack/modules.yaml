@@ -43,6 +43,7 @@ modules:
         pkgconf: '{name}/{version}-{hash:3}'
         cudnn: '{name}/{version}' # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
         ^cuda: '{name}/{version}+cuda{^cuda.version}'
+        ^python: '{name}/{version}+py{^python.version}'
         all: '{name}/{version}'
 
 
