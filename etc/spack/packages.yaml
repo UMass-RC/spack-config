@@ -54,6 +54,7 @@ packages:
     - +dc
     - +cma
     - +dm
+    - +knem
     - +cuda
     - +gdrcopy
 
