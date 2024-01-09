@@ -1,17 +1,23 @@
 # spack-config
 
-Edits to this config should be made on your local machine, pushed here, and pulled down to Unity.
+note: while we wait for PR's to be merged and another release to come out, we are using
+this fork of spack: https://github.com/simonLeary42/spack (branch releases/v0.21)
 
-Deployment:
+### Deployment:
 ```sh
-version="0.20.0"
-mkdir /modules/spack/${version}
-cd /modules/spack/${version}
+version="0.21.0"
+system_name="unity"
+mkdir -p /modules/spack/${version}/${system_name}
+cd /modules/spack/${version}/${system_name}
 # clone this repo via HTTPS, not SSH
 git clone https://github.com/UMass-RC/spack-config.git .
+git checkout releases/${version}
 # download and extract spack
+cd ..
 wget https://github.com/spack/spack/releases/download/v${version}/spack-${version}.tar.gz
-tar -xvf ./spack-${version}.tar.gz --strip-components=1
+tar -xf ./spack-${version}.tar.gz --strip-components=1
+# install config files
+ln -s unity/config/* etc/spack/
 
 # deploy to production:
 source /modules/spack/${VERISON}/share/spack/setup-env.sh
