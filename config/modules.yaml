@@ -38,6 +38,7 @@ modules:
 
       projections:
         cudnn: '{name}/{version}' # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
+        ^cuda^python: '{name}/{version}+py{^python.version}+cuda{^cuda.version}'
         ^cuda: '{name}/{version}+cuda{^cuda.version}'
         ^python: '{name}/{version}+py{^python.version}'
         all: '{name}/{version}'
