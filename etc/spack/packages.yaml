@@ -42,6 +42,9 @@ packages:
     - schedulers=slurm
     #- "+legacylaunchers"
 
+  libfabric:
+    variants:
+    - fabrics=verbs,psm3,rxm,rxd,tcp,shm
   ucx:
     variants:
     - +cm
