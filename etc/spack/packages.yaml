@@ -33,10 +33,11 @@ packages:
   # DEFAULT VARIANTS
   ############################################################################################
   openmpi:
-    buildable: false # please don't make any more of these
+    buildable: false # please be careful making new ones
     variants:
     # default mpi would like our slurm to have pmix but it doesn't, it'll have to make do with pmi
     - +pmi
+    - +internal-pmix
     - +cuda
     - fabrics=ucx
     - schedulers=slurm
