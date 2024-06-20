@@ -297,7 +297,7 @@ packages:
 
   # For IB nodes; recommended by https://mvapich.cse.ohio-state.edu/userguide/userguide_spack/
   rdma-core:
-    buildable: False
+    buildable: false
     externals:
     - spec: rdma-core@28.0
       prefix: /usr
