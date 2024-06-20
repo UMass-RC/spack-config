@@ -5,6 +5,8 @@
 #SBATCH -t 8:00:00
 #SBATCH -o logs/cleanup-%j.log
 
+set -e
+
 echo "jobid $SLURM_JOB_ID on host $(hostname) by user $(whoami) on $(date)"
 
 if [ ! -f "$PWD/post-install-cleanup.sh" ]; then
