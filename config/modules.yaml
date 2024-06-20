@@ -88,4 +88,4 @@ modules:
       blast-plus:
         environment:
           set:
-            BLASTDB: /datasets/bio/ncbi-db
+            NCBI: /datasets/bio/ncbi-db
