@@ -101,6 +101,36 @@ if (mode() == "load") then
 end
 {% endif %}
 
+{% if spec.name == "diamond" %}
+if (mode() == "load") then
+local ncbirc = '/datasets/bio/ncbi-db/.ncbirc'
+local searchKey = "BLASTDB"
+
+local function parseKeyValue(file, key)
+    local result = {}
+    for line in file:lines() do
+        _, _, k, v = string.find(line, "(%a+)=(.+)")
+        if k ~= nil then
+            result[k] = v
+        end
+    end
+    return result
+end
+local file = io.open(ncbirc, "r")
+if file ~= nil then
+    local keyValuePairs = parseKeyValue(file, searchKey)
+    file:close()
+    for k, v in pairs(keyValuePairs) do
+        if k == searchKey then
+            setenv(searchKey, v)
+        end
+    end
+else
+    LmodWarning("BLASTDB could not be set automatically")
+end
+end
+{% endif %}
+
 {% if spec.name == "openfoam" or spec.name == "openfoam-org" %}
 if mode() == "load" then
     local userdir = pathJoin(os.getenv("HOME"), "OpenFOAM", os.getenv("USER") .. "-{{ spec.version }}")
