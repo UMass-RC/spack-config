@@ -79,11 +79,11 @@ modules:
       apptainer:
         environment:
           set:
-            APPTAINER_BINDPATH: /work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets
+            APPTAINER_BINDPATH: /work,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets
       singularity:
         environment:
           set:
-            SINGULARITY_BINDPATH: /work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets
+            SINGULARITY_BINDPATH: /work,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets
 
       blast-plus:
         environment:
