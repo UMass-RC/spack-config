@@ -29,6 +29,9 @@ packages:
     externals:
     - spec: openssh@8.2p1
       prefix: /usr
+  kokkos:
+    variants:
+    - cuda_arch=52
 
   # DEFAULT VARIANTS
   ############################################################################################
