@@ -16,10 +16,9 @@ git checkout releases/v${version}
 mkdir ${system_name}
 cd ${system_name}
 git clone https://github.com/UMass-RC/spack-config.git .
-git checkout releases/v${version}
 
 # install config files
-ln -s /modules/spack/${version}/unity/config/* ./etc/spack/
+cd ./etc/spack && ln -s ../../unity/config/* . && cd ../..
 
 # deploy to production
 source ./share/spack/setup-env.sh
