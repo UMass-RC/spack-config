@@ -7,7 +7,13 @@
 
 echo "jobid $SLURM_JOB_ID on host $(hostname) by user $(whoami) on $(date)"
 
-SPACK_PREFIX=/modules/spack/0.20.0/
+if [ ! -f "$PWD/post-install-cleanup.sh" ]; then
+    echo "please change your current working directory to \$spack/unity/installers/" >&2
+    echo "where \$spack is the spack directory for whatever spack instance you are using" >&2
+    echo "/modules/spack/<whatever>" >&2
+    exit 1
+fi
+SPACK_PREFIX=$(dirname $(dirname "$PWD"))
 
 if [ -z "$SLURM_JOB_ID" ]; then
     echo "this script takes a long time, you probably want to \`sbatch\` me!"
