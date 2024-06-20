@@ -101,6 +101,18 @@ if (mode() == "load") then
 end
 {% endif %}
 
+{% if spec.name == "openfoam" or spec.name == "openfoam-org" %}
+if mode() == "load" then
+    local userdir = pathJoin(os.getenv("HOME"), "OpenFOAM", os.getenv("USER") .. "-{{ spec.version }}")
+    setenv("WM_PROJECT_USER_DIR", userdir)
+    setenv("FOAM_RUN", pathJoin(userdir, "run"))
+    setenv("FOAM_USER_APPBIN", pathJoin(userdir, "platforms/linux64GccDPInt32Opt/bin"))
+    setenv("FOAM_USER_LIBBIN", pathJoin(userdir, "platforms/linux64GccDPInt32Opt/lib"))
+    prepend_path_if_exists("LD_LIBRARY_PATH", pathJoin(userdir, "platforms/linux64GccDPInt32Opt/lib"))
+    prepend_path_if_exists("PATH", pathJoin(userdir, "platforms/linux64GccDPInt32Opt/bin"))
+end
+{% endif %}
+
 {% if spec.name == "apptainer" %}
 if (mode() == "load") then
   local username = os.getenv("USER")
