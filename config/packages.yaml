@@ -14,7 +14,7 @@ packages:
 
     # spack likes to ignore preferences, so we make them non negotiable
     # comment these out if you want to do something different
-    require: "%gcc@9.4.0"
+    require: '%gcc@9.4.0'
   mpi:
     require: openmpi
   blas:
