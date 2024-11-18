@@ -1,3 +1,5 @@
+## ARCHIVED: see https://gitlab.rc.umass.edu/unity/facilitation/spack-stack
+
 # spack-config
 
 note: while we wait for PR's to be merged and another release to come out, we are using
